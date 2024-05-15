@@ -16,7 +16,7 @@ const pauseSound = new Audio('./sons/pause.mp3');
 const playSound = new Audio('./sons/play.wav');
 const finishSound = new Audio('./sons/beep.mp3');
 
-let elapsedTimeInSeconds = 1500;
+let elapsedTimeInSeconds = 30;
 let intervalId = null;
 music.loop = true
 
@@ -74,6 +74,11 @@ let countdown = () => {
   if(elapsedTimeInSeconds <= 0) {
     finishSound.play();
     alert('tempo finalizado');
+    const activeFocus = html.getAttribute('data-contexto') == 'foco'
+    if (activeFocus) {
+      const event = new CustomEvent('focoFinalizado')
+      document.dispatchEvent(event)
+    }
     toZero();
     return;
   }
